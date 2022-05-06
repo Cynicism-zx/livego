@@ -18,6 +18,11 @@
 
 # # API Options
 # api_addr: ":8090"
+
+# #想启用redis需要打开以下两项注释,不打开默认启用本地存储
+#redis_addr: 127.0.0.1:6379
+#redis_pwd:
+
 server:
 - appname: live
   live: true
