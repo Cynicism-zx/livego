@@ -53,7 +53,7 @@ func (server *Server) getStreams(w http.ResponseWriter, r *http.Request) *stream
 		return nil
 	}
 	msgs := new(streams)
-
+	// 遍历sync.Map的键值
 	rtmpStream.GetStreams().Range(func(key, val interface{}) bool {
 		if s, ok := val.(*rtmp.Stream); ok {
 			if s.GetReader() != nil {
@@ -107,7 +107,7 @@ func (server *Server) handleConn(w http.ResponseWriter, r *http.Request) {
 	}
 	path := strings.TrimSuffix(strings.TrimLeft(u, "/"), ".flv")
 	paths := strings.SplitN(path, "/", 2)
-	log.Debug("url:", u, "path:", path, "paths:", paths)
+	log.Debug("url:", u, " path:", path, " paths:", paths)
 
 	if len(paths) != 2 {
 		http.Error(w, "invalid path", http.StatusBadRequest)
