@@ -241,6 +241,7 @@ func (connServer *ConnServer) playResp(cur *ChunkStream) error {
 	return connServer.conn.Flush()
 }
 
+// handleCmdMsg 根据ChunkStream数据执行相应动作
 func (connServer *ConnServer) handleCmdMsg(c *ChunkStream) error {
 	amfType := amf.AMF0
 	if c.TypeID == 17 {
@@ -255,21 +256,21 @@ func (connServer *ConnServer) handleCmdMsg(c *ChunkStream) error {
 	switch vs[0].(type) {
 	case string:
 		switch vs[0].(string) {
-		case cmdConnect:
+		case cmdConnect: // rtmp连接
 			if err = connServer.connect(vs[1:]); err != nil {
 				return err
 			}
 			if err = connServer.connectResp(c); err != nil {
 				return err
 			}
-		case cmdCreateStream:
+		case cmdCreateStream: // 创建流
 			if err = connServer.createStream(vs[1:]); err != nil {
 				return err
 			}
 			if err = connServer.createStreamResp(c); err != nil {
 				return err
 			}
-		case cmdPublish:
+		case cmdPublish: // 推流
 			if err = connServer.publishOrPlay(vs[1:]); err != nil {
 				return err
 			}
@@ -279,7 +280,7 @@ func (connServer *ConnServer) handleCmdMsg(c *ChunkStream) error {
 			connServer.done = true
 			connServer.isPublisher = true
 			log.Debug("handle publish req done")
-		case cmdPlay:
+		case cmdPlay: // 拉流
 			if err = connServer.publishOrPlay(vs[1:]); err != nil {
 				return err
 			}

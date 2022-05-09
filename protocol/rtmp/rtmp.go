@@ -104,7 +104,7 @@ func (s *Server) handleConn(conn *core.Conn) error {
 		return err
 	}
 	connServer := core.NewConnServer(conn)
-
+	// 读取chunk stream data
 	if err := connServer.ReadMsg(); err != nil {
 		conn.Close()
 		log.Error("handleConn read msg err: ", err)
@@ -148,12 +148,14 @@ func (s *Server) handleConn(conn *core.Conn) error {
 		log.Debugf("new publisher: %+v", reader.Info())
 
 		if s.getter != nil {
+			// rtmp流转到hls
 			writeType := reflect.TypeOf(s.getter)
 			log.Debugf("handleConn:writeType=%v", writeType)
 			writer := s.getter.GetWriter(reader.Info())
 			s.handler.HandleWriter(writer)
 		}
 		if configure.Config.GetBool("flv_archive") {
+			// rtmp流转到flv
 			flvWriter := new(flv.FlvDvr)
 			s.handler.HandleWriter(flvWriter.GetWriter(reader.Info()))
 		}

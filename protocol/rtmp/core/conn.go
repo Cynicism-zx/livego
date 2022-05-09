@@ -45,6 +45,7 @@ func NewConn(c net.Conn, bufferSize int) *Conn {
 	}
 }
 
+// Read 将数据读进ChunkStream
 func (conn *Conn) Read(c *ChunkStream) error {
 	for {
 		h, _ := conn.rw.ReadUintBE(1)

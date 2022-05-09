@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"github.com/gwuhaolin/livego/parser/h265"
 	"io"
 
 	"github.com/gwuhaolin/livego/av"
@@ -18,6 +19,7 @@ type CodecParser struct {
 	aac  *aac.Parser
 	mp3  *mp3.Parser
 	h264 *h264.Parser
+	h265 *h265.Parser // TODO: 增加h265解析
 }
 
 func NewCodecParser() *CodecParser {

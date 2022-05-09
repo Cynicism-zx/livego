@@ -8,12 +8,13 @@ import (
 	"github.com/gwuhaolin/livego/utils/pool"
 )
 
+// ChunkStream 一个chunk的协议规范
 type ChunkStream struct {
 	Format    uint32
-	CSID      uint32
+	CSID      uint32 // chunk stream id(块流通道Id)
 	Timestamp uint32
 	Length    uint32
-	TypeID    uint32
+	TypeID    uint32 // 消息类型
 	StreamID  uint32
 	timeDelta uint32
 	exted     bool
