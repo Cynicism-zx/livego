@@ -48,6 +48,13 @@ func (codeParser *CodecParser) Parse(p *av.Packet, w io.Writer) (err error) {
 				}
 				err = codeParser.h264.Parse(p.Data, f.IsSeq(), w)
 			}
+			// 增加h265 codeid, 一般默认为12
+			if f.CodecID() == av.VIDEO_H265 {
+				if codeParser.h265 == nil {
+					codeParser.h265 = h265.NewParser()
+				}
+				err = codeParser.h265.Parse(p.Data, f.IsSeq(), w)
+			}
 		}
 	case false:
 		f, ok := p.Header.(av.AudioPacketHeader)
