@@ -125,7 +125,7 @@ func initDefault() {
 	pflag.String("config_file", "livego.yaml", "configure filename")
 	pflag.String("level", "debug", "Log level")
 	pflag.Bool("hls_keep_after_end", false, "Maintains the HLS after the stream ends")
-	pflag.Bool("flv_archive", true, "save flv file") // 是否保存流文件为 .flv格式
+	pflag.Bool("flv_archive", false, "save flv file") // 是否保存流文件为 .flv格式
 	pflag.String("flv_dir", "tmp", "output flv file at flvDir/APP/KEY_TIME.flv")
 	pflag.Int("read_timeout", 100, "read time out")
 	pflag.Int("write_timeout", 100, "write time out")

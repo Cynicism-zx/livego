@@ -84,7 +84,7 @@ type AudioPacketHeader interface {
 type VideoPacketHeader interface {
 	PacketHeader
 	IsKeyFrame() bool
-	IsSeq() bool
+	IsSeq() bool // 是否是关键帧
 	CodecID() uint8
 	CompositionTime() int32
 }

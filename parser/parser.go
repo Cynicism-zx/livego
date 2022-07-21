@@ -42,14 +42,13 @@ func (codeParser *CodecParser) Parse(p *av.Packet, w io.Writer) (err error) {
 	case true:
 		f, ok := p.Header.(av.VideoPacketHeader)
 		if ok {
-			if f.CodecID() == av.VIDEO_H264 {
+			switch f.CodecID() {
+			case av.VIDEO_H264:
 				if codeParser.h264 == nil {
 					codeParser.h264 = h264.NewParser()
 				}
 				err = codeParser.h264.Parse(p.Data, f.IsSeq(), w)
-			}
-			// 增加h265 codeid, 一般默认为12
-			if f.CodecID() == av.VIDEO_H265 {
+			case av.VIDEO_H265: // 增加h265 codeid, 一般默认为12
 				if codeParser.h265 == nil {
 					codeParser.h265 = h265.NewParser()
 				}
